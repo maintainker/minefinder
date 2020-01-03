@@ -6,22 +6,71 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
-    <script type="text/javascript">        
-        $(document).ready(function() {
-            var demo = $("#demo");
-            for(var i =0;i<10;i++){
-                demo.append("<tr>");
-                for(var j = 0;j<10;j++){
-                    var k = i*10+j+1;
-                    demo.find('tr:last').append("<td>"+k+"</td>");
+    <script type="text/javascript">       
+        var mine =new Array();
+        var game =new Array();  
+        var col,row;
+        col =10; // 1의자리수
+        row =10; // 10의 자리수 
+        var minenum = 10;
+        for(var i =0;i<col*row;i++){
+            mine[i] =0;
+        }
+        for(var i =0;i<col*row;i++){
+            game[i] =0;
+        }
+        for(var i = 0;i<minenum;){
+            var val = Math.floor( Math.random()*100 );
+            if(mine[val] !=="X"){
+                mine[val] = "X";
+                i++;
+            }
+        }
+        for(var i = 0; i<col*row ;i++){
+            if(mine[i]!=="X"){
+                for(var j = 0;j<3;j++){
+                    for(var k = 0;k<3;k++){
+                        if(mine[i-row-1+j*10+k]==="X"){
+                            mine[i]++;
+                        }
+                    }
                 }
-                demo.append("</tr>")
+            }
+        }
+        
+        $(document).ready(function() {
+            var demo = $("#map");
+            for(var i =0;i<col;i++){
+                demo.append("<tr></tr>");
+                for(var j = 0;j<row;j++){
+                    var k = i*row+j;
+                    demo.find('tr:last').append("<td>"+mine[k]+"</td>");
+                }
+            }
+        });
+        
+        $(document).ready(function() {
+            var demo = $("#game");
+            for(var i =0;i<col;i++){
+                demo.append("<tr></tr>");
+                for(var j = 0;j<row;j++){
+                    var k = i*row+j;
+                    demo.find('tr:last').append("<td></td>");
+                }
             }
         });
     </script>
+    <style>
+        #map td, #game td{
+            width: 20px;
+            height: 20px;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-    <table id="demo"></table>
+    <table id="map" border="1"></table>
+    <table id="game" border="1"></table>
     <footer>
         made by ssul. since 2020.1.3
     </footer>
