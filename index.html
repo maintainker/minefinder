@@ -56,15 +56,22 @@
                 for(var j = 0;j<row;j++){
                     var k = i*row+j;
                     demo.find('tr:last').append("<td></td>");
+                    demo.find('td:last').append("<span "+"id:'"+k+"'>"+game[k]+"</span>");
                 }
             }
         });
+        $("#map td").css("background","black");
     </script>
     <style>
         #map td, #game td{
             width: 20px;
             height: 20px;
             text-align: center;
+        }
+        #game span{
+            display: block;
+            width: 100%;
+            height: 100%;
         }
     </style>
 </head>
